@@ -1,9 +1,10 @@
-# Imports
+# Import Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 import datetime as dt
 from webdriver_manager.chrome import ChromeDriverManager
+
 
 def scrape_all():
     # Initiate headless driver for deployment
@@ -25,11 +26,12 @@ def scrape_all():
     browser.quit()
     return data
 
-# Scrape Mars NASA news site
+
 def mars_news(browser):
 
+    # Scrape Mars News
     # Visit the mars nasa news site
-    url = 'https://redplanetscience.com/'
+    url = 'https://data-class-mars.s3.amazonaws.com/Mars/index.html'
     browser.visit(url)
 
     # Optional delay for loading the page
@@ -52,11 +54,10 @@ def mars_news(browser):
 
     return news_title, news_p
 
-# Featured Image Scrape
-def featured_image(browser):
 
+def featured_image(browser):
     # Visit URL
-    url = 'https://spaceimages-mars.com'
+    url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html'
     browser.visit(url)
 
     # Find and click the full image button
@@ -76,13 +77,11 @@ def featured_image(browser):
         return None
 
     # Use the base url to create an absolute url
-    img_url = f'https://spaceimages-mars.com/{img_url_rel}'
+    img_url = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{img_url_rel}'
 
     return img_url
 
-# Mars facts Scrape
 def mars_facts():
-    
     # Add try/except for error handling
     try:
         # Use 'read_html' to scrape the facts table into a dataframe
