@@ -24,7 +24,7 @@ def scrape():
    return redirect('/', code=302)
 
 # update database
-.update_one(query_parameter, {"$set": data}, options)
+mars.update_one({}, {"$set":mars_data}, upsert=True)
 
 # run flask
 if __name__ == "__main__":
